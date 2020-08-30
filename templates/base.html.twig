@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>{% block title %}KineList{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block js_before %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+    {% if topmenu is defined %}
+        {{ topmenu | raw }}
+    {% endif %}
+    {% if sidemenu is defined %}
+        <div class="sidemenu">
+        {{ sidemenu | raw }}
+        </div>
+    {% endif %}
+
+    <div class="pageContainer">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <div class="pageFooterContainer fixed-bottom">
+        <div class="card">
+            <div class="card-body copyright">
+                <center>
+                {% block footer %}
+                    <table><tr>
+                        <td>App v0.99 | </td>
+                        <td>Last Update: 24/03/2020 | </td>
+                        <td>Contact: <a href="mailto:julien.marusi@bbee.fr">julien.marusi@bbee.fr</a></td>
+                    </tr></table>
+                {% endblock %}
+                </center>
+            </div>
+        </div>
+    </div>
+
+    {% block js_after %}
+        {{ encore_entry_script_tags('doc_ready') }}
+    {% endblock %}
+</body>
+</html>
