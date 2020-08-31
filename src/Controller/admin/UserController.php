@@ -17,7 +17,7 @@ use App\Service\BSMenuGenerator;
 
 /**
  * @IsGranted("ROLE_ADMIN")
- * @Route("/app/admin/user")
+ * @Route("/admin/user")
  */
 class UserController extends AbstractController
 {
@@ -35,8 +35,8 @@ class UserController extends AbstractController
     {
         return $this->render('admin/user/index.html.twig', [
             'users' => $userRepository->findAll(),
-            'topmenu' => $this->menu->renderTopMenu('build/data/menu.ini'),
-            'sidemenu' => $this->menu->renderSideMenu('build/data/sm_admin.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
+            'sidemenu' => $this->menu->renderSideMenu('admin.ini'),
         ]);
     }
 
@@ -61,8 +61,8 @@ class UserController extends AbstractController
         }
 
         return $this->render('admin/user/new.html.twig', [
-            'topmenu' => $this->menu->renderTopMenu('build/data/menu.ini'),
-            'sidemenu' => $this->menu->renderSideMenu('build/data/sm_admin.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
+            'sidemenu' => $this->menu->renderSideMenu('admin.ini'),
             'user' => $user,
             'form' => $form->createView(),
         ]);
@@ -75,8 +75,8 @@ class UserController extends AbstractController
     {
         return $this->render('admin/user/show.html.twig', [
             'user' => $user,
-            'topmenu' => $this->menu->renderTopMenu('build/data/menu.ini'),
-            'sidemenu' => $this->menu->renderSideMenu('build/data/sm_admin.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
+            'sidemenu' => $this->menu->renderSideMenu('admin.ini'),
         ]);
     }
 
@@ -104,8 +104,8 @@ class UserController extends AbstractController
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
-            'topmenu' => $this->menu->renderTopMenu('build/data/menu.ini'),
-            'sidemenu' => $this->menu->renderSideMenu('build/data/sm_admin.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
+            'sidemenu' => $this->menu->renderSideMenu('admin.ini'),
         ]);
     }
 

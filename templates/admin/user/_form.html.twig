@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+
+    <div class="row col-12">
+        <div class="col-6">{{ form_row(form.email) }}</div>
+        <div class="col-6">{{ form_row(form.plainPassword) }}</div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-6">{{ form_row(form.fullname) }}</div>
+        <div class="col-6">{{ form_row(form.nickname) }}</div>
+    </div>
+
+    <div class="row col-12">
+        <div class="col-6">{{ form_row(form.roles) }}</div>
+        <div class="col-6">
+            {{ form_row(form.disabled) }}
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-warning">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+{{ form_end(form) }}

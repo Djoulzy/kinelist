@@ -8,14 +8,14 @@ use App\Service\CheckPermissions;
 class BSMenuGenerator
 {
     private $topm_header = '
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <a class="navbar-brand" href="/"><i>%APPNAME%</i></a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse justify-content-stretch" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
     ';
 
@@ -33,13 +33,11 @@ class BSMenuGenerator
     ';
 
     private $sidem_header = '
-        <nav class="d-flex flex-column flex-grow-1">
-            <div class="sidebar-sticky sidemenu">
+        <div class="sidemenu col-md-2 sidebar flex-shrink-1 bg-light d-none d-lg-block" id="Navbar">
     ';
 
     private $sidem_footer = '
-            </div>
-        </nav>
+        </div>
     ';
 
     private $request;
@@ -129,19 +127,19 @@ class BSMenuGenerator
 
     public function renderSideMenu(string $fileName)
     {
-        $ini_array = parse_ini_file($fileName, true, INI_SCANNER_TYPED);
+        $ini_array = parse_ini_file('build/data/menus/'.$fileName, true, INI_SCANNER_TYPED);
 
         $uri = $this->request->getPathInfo();
         $html = $this->sidem_header;
         foreach($ini_array as $section => $liste) {
-            $html .= '
-                <div class="sidebar-heading">
-                    '.$section;
+
+            $html .= '<div class="sidebar-heading">
+            '.$section;
             $html .= $this->addID($liste['desc']['id']);
             $html .= '</div>';
-
             $html .= '
-                <ul class="nav sidemenu_list">';
+                <ul class="nav">';
+
             foreach($liste as $option => $params) {
                 if ($option == 'desc') continue;
                 switch($params['type']) {
@@ -173,7 +171,8 @@ class BSMenuGenerator
                 }
             }
             $html .= '
-                </ul>';
+                </ul>
+                ';
         }
         $html .= $this->sidem_footer;
         return $html;

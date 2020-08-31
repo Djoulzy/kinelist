@@ -18,7 +18,7 @@ use App\Service\BSMenuGenerator;
 
 /**
  * @IsGranted("ROLE_ADMIN")
- * @Route("/app/admin/log")
+ * @Route("/admin/log")
  */
 class LogsController extends AbstractController
 {
@@ -41,8 +41,8 @@ class LogsController extends AbstractController
 
         return $this->render('admin/logs/index.html.twig', [
             'logs' => $data,
-            'topmenu' => $this->menu->renderTopMenu('build/data/menu.ini'),
-            'sidemenu' => $this->menu->renderSideMenu('build/data/sm_admin.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
+            'sidemenu' => $this->menu->renderSideMenu('admin.ini'),
         ]);
     }
 
@@ -61,8 +61,8 @@ class LogsController extends AbstractController
         return $this->render('admin/logs/show.html.twig', [
             'user' => $user,
             'logs' => $data,
-            'topmenu' => $this->menu->renderTopMenu('build/data/menu.ini'),
-            'sidemenu' => $this->menu->renderSideMenu('build/data/sm_admin.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
+            'sidemenu' => $this->menu->renderSideMenu('admin.ini'),
         ]);
     }
 }

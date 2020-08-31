@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header"><h1>User index</h1></div>
+    <div class="card-body">
+        <table class="table crud">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email / Login</th>
+                    <th>Roles</th>
+                    <th>Fullname</th>
+                    <th>Nickname</th>
+                    <th class="text-center">Disabled</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    <td>{{ user.fullname }}</td>
+                    <td>{{ user.nickname }}</td>
+                    <td class="text-center">{{ user.disabled ? '<i class="fas fa-lock" style="color:red;"></i>'|raw : '<i class="fas fa-lock-open" style="color:green;"></i>'|raw }}</td>
+                    <td class="text-center">
+                        <a class="btn btn-info btn-sm" href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                        <a class="btn btn-warning btn-sm" href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row col-md-12">
+            <div class="col-md-12 text-center">
+                <a class="btn btn-success" href="{{ path('user_new') }}">Create new</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

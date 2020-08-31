@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -11,21 +11,22 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     {% if topmenu is defined %}
         {{ topmenu | raw }}
     {% endif %}
-    {% if sidemenu is defined %}
-        <div class="sidemenu">
-        {{ sidemenu | raw }}
+    <div class="container-fluid flex-grow-1 d-flex">
+        <div class="row">
+            {% if sidemenu is defined %}
+                {{ sidemenu | raw }}
+            {% endif %}
+
+            <div class="flex-grow-1 py-3 px-3">
+                {% block body %}
+                {% endblock %}
+            </div>
         </div>
-    {% endif %}
-
-    <div class="pageContainer">
-        {% block body %}
-        {% endblock %}
     </div>
-
     <div class="pageFooterContainer fixed-bottom">
         <div class="card">
             <div class="card-body copyright">

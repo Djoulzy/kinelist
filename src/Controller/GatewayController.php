@@ -41,7 +41,7 @@ class GatewayController extends AbstractController
 
         $options = array(
             'controller_name' => 'GatewayController',
-            'topmenu' => $this->menu->renderTopMenu('home.ini'),
+            'topmenu' => $this->menu->renderTopMenu('topmenu.ini'),
         );
 
         return $this->render('gateway/index.html.twig', $options);

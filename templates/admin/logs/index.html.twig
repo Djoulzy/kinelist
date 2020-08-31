@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Logs index{% endblock %}
+
+{% block body %}
+    <h1>Logs index</h1>
+
+<div class="card">
+    <div class="card-header"><h1>User</h1></div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Logins</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td><a href="{{ path('logs_show', {'id': log.id}) }}">{{ log.username }}</a></td>
+                    <td>{{ log.login }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -4,3 +4,24 @@
 // body {
 // 	background: var(--dark);
 // }
+
+.pageContainer {}
+
+.sidemenu {
+    min-width: 170px;
+}
+
+.sidebar-heading {
+    white-space: normal;
+}
+
+.dropdown-header {
+    display: block;
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    font-size: .875rem;
+    color: #6c757d;
+    white-space: normal;
+}
+
+.pageFooterContainer {}

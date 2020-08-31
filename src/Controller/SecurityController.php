@@ -43,6 +43,56 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
+     * @Route("/send_activation/{id}", name="send_activation")
+     */
+    public function sendActivation(Request $request, UserPasswordEncoderInterface $encoder,
+        \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator, Packages $assetsManager, int $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        if ($user === null) {
+            $this->addFlash('danger', 'Unknown Account');
+            return $this->render('security/sendmail.html.twig');
+        }
+        $email = $user->getEmail();
+        $token = $tokenGenerator->generateToken();
+
+        try{
+            $user->setResetToken($token);
+            $entityManager->flush();
+        } catch (\Exception $e) {
+            $this->addFlash('warning', $e->getMessage());
+            return $this->render('security/sendmail.html.twig');
+        }
+
+        $url = $this->generateUrl('activate_account', array('id' => $user->getId(),'token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $message = (new \Swift_Message('Activation de votre compte'))
+            ->setFrom($_ENV['MAILER_SENDER'])
+            ->setTo($user->getEmail());
+        $content = $this->renderView('security/mailhtml.html.twig', [
+            'lien' => $url,
+            'passwd' => $request->request->get('password')
+        ]);
+        $content2 = $this->renderView('security/mailplain.html.twig', [
+            'lien' => $url,
+            'passwd' => $request->request->get('password')
+        ]);
+        // $message->setBody($content, 'text/html');
+        $message->setBody($content, 'text/plain');
+
+        $message->setBody($content, 'text/html');
+        $message->addPart($content2, 'text/plain');
+
+        $mailer->send($message);
+
+        $this->addFlash('info', 'Mail envoyé');
+        return $this->render('security/sendmail.html.twig');
+    }
+
+    /**
      * @Route("/register", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder,
