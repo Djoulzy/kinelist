@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Antecedent{% endblock %}
+
+{% block body %}
+    <h1>Antecedent</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ antecedent.id }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ antecedent.label }}</td>
+            </tr>
+            <tr>
+                <th>Commentaire</th>
+                <td>{{ antecedent.commentaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('antecedent_index') }}">back to list</a>
+
+    <a href="{{ path('antecedent_edit', {'id': antecedent.id}) }}">edit</a>
+
+    {{ include('antecedent/_delete_form.html.twig') }}
+{% endblock %}

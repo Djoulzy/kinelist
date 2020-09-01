@@ -1,0 +1,8 @@
+
+<h1>Edit Pathologie</h1>
+
+{{ include('pathologie/_form.html.twig', {'button_label': 'Update'}) }}
+
+<button type="button" class="action_button btn btn-primary" data-href="{{ path('pathologie_index', {'patient_id': patient.id}) }}">back to list</button>
+
+{{ include('pathologie/_delete_form.html.twig') }}

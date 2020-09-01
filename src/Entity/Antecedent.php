@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AntecedantRepository;
+use App\Repository\AntecedentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=AntecedantRepository::class)
+ * @ORM\Entity(repositoryClass=AntecedentRepository::class)
  */
-class Antecedant
+class Antecedent
 {
     /**
      * @ORM\Id

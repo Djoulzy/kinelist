@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patient{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header"><span class="big-label">{{ patient.nom }} {{ patient.prenom }}</span> [{{ patient.id }}]</div>
+        <div id="details_patient" class="card-body">
+
+        </div>
+    </div>
+
+    <div style="height: 30px"></div>
+
+    <ul class="nav nav-tabs" id="patient_infos" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link tab-title active" id="antecedent-tab" data-toggle="tab" role="tab" aria-controls="antecedent" href="/antecedent/{{ patient.id }}" data-target="#antecedent" aria-selected="true">Antecedents</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link tab-title" id="pathologie-tab" data-toggle="tab" role="tab" aria-controls="pathologie" href="/pathologie/{{ patient.id }}" data-target="#pathologie" aria-selected="false">Pathologies</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link tab-title" id="document-tab" data-toggle="tab" role="tab" aria-controls="document" href="/document/{{ patient.id }}" data-target="#document" aria-selected="false">Documents</a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content flex-grow-1 d-flex">
+        <div class="tab-pane tab-aspect fade show active flex-grow-1 py-3 px-3" id="antecedent" role="tabpanel" aria-labelledby="antecedent-tab">1</div>
+        <div class="tab-pane tab-aspect fade flex-grow-1 py-3 px-3" id="pathologie" role="tabpanel" aria-labelledby="pathologie-tab">2</div>
+        <div class="tab-pane tab-aspect fade flex-grow-1 py-3 px-3" id="document" role="tabpanel" aria-labelledby="document-tab">3</div>
+    </div>
+{% endblock %}
+
+{% block js_after %}
+    {{ parent() }}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            $.when(ajaxDataLoader('/patient/{{ patient.id }}/infos', 'html', 'GET')).done(function(data) {
+                $('#details_patient').html(data)
+            });
+
+            $('#patient_infos a').on('click', function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+
+            $("a[data-toggle='tab']").on("show.bs.tab", function (e) {
+                if ( e.relatedTarget ) {
+                    $( $(e.relatedTarget).data("target") ).empty();
+                }
+                var url = $(e.target).attr("href");
+                var $tabTarget = $( $(e.target).data("target") );
+                $tabTarget.load(url)
+
+                $( $(e.relatedTarget).data("target") ).removeClass('active');
+            })
+
+            $(document).on("click", ".action_button", null, function () {
+                var target = (( typeof $(this).data("target") !== typeof undefined) ? '#'+$(this).data("target") : ".tab-pane.active")
+                console.log(target)
+                // var $target = $(".tab-pane.active")
+                var url = $(this).data("href")
+                $(target).load(url)
+            })
+
+            $(".tab-content").on("click", ".submit_button", null, function () {
+                var form = $(this).closest("form");
+                $.when(ajaxDataLoader($(this).data("href"), 'html', 'POST', $(form).serialize())).done(function(data) {
+                    $(".tab-pane.active").html(data)
+                });
+            })
+        })
+    </script>
+{% endblock %}

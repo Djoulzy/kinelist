@@ -33,7 +33,7 @@ class BSMenuGenerator
     ';
 
     private $sidem_header = '
-        <div class="sidemenu col-md-2 sidebar flex-shrink-1 bg-light d-none d-lg-block" id="Navbar">
+        <div class="sidemenu col-md-2 sidebar flex-shrink-1 bg-light" id="Navbar">
     ';
 
     private $sidem_footer = '
@@ -52,12 +52,12 @@ class BSMenuGenerator
 
     private function addID($val)
     {
-        if ($this->perms->isGranted('ROLE_ADMIN')) {
-            if (isset($this->idCollection[$val]))
-                die("BAD ID REF: ID ".$val." ALREADY EXISTS");
-            else $this->idCollection[$val] = true;
-            return '<span class="admin_id">['.$val.']</span>';
-        }
+        // if ($this->perms->isGranted('ROLE_ADMIN')) {
+        //     if (isset($this->idCollection[$val]))
+        //         die("BAD ID REF: ID ".$val." ALREADY EXISTS");
+        //     else $this->idCollection[$val] = true;
+        //     return '<span class="admin_id">['.$val.']</span>';
+        // }
         return '';
     }
 

@@ -73,10 +73,10 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
     .addPlugin(new CopyWebpackPlugin({
-      patterns: [
-          { from: './assets/img', to: 'img' },
-          { from: './assets/data', to: 'data' }
-      ],
+        patterns: [
+            { from: './assets/img', to: 'img' },
+            { from: './assets/data', to: 'data' }
+        ],
     }))
 ;
 

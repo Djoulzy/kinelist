@@ -1,0 +1,14 @@
+
+{% for pathologie in pathologies %}
+    <div class="row">
+        <div class="col-10 text-important text-left">[{{ pathologie.id }}] {{ pathologie.label }}</div>
+        <div class="col-2"><button type="button" class="action_button btn btn-primary btn-xs btn-block" data-href="{{ path('pathologie_show', {'patient_id': patient.id, 'id': pathologie.id}) }}">Détails</button></div>
+    </div>
+    <hr/>
+{% else %}
+    <tr>
+        <td colspan="3">no records found</td>
+    </tr>
+{% endfor %}
+
+<button type="button" class="action_button btn btn-primary" data-href="{{ path('pathologie_new', {'patient_id': patient.id}) }}">Create new</button>

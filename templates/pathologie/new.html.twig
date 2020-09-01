@@ -1,0 +1,5 @@
+<h1>Create new Pathologie</h1>
+
+{{ include('pathologie/_form.html.twig') }}
+
+<a href="{{ path('pathologie_index', {'patient_id': patient.id}) }}">back to list</a>

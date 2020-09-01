@@ -1,0 +1,4 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="button" class="submit_button btn btn-primary" data-href="{{ form.vars.action }}" >{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

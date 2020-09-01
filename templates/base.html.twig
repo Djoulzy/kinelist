@@ -16,12 +16,11 @@
         {{ topmenu | raw }}
     {% endif %}
     <div class="container-fluid flex-grow-1 d-flex">
-        <div class="row">
+        <div class="row flex-grow-1 d-flex">
             {% if sidemenu is defined %}
                 {{ sidemenu | raw }}
             {% endif %}
-
-            <div class="flex-grow-1 py-3 px-3">
+            <div class="pageContainer col-md-10 py-3 px-3">
                 {% block body %}
                 {% endblock %}
             </div>
@@ -34,7 +33,7 @@
                 {% block footer %}
                     <table><tr>
                         <td>App v0.99 | </td>
-                        <td>Last Update: 24/03/2020 | </td>
+                        <td>Last Update: 01/09/2020 | </td>
                         <td>Contact: <a href="mailto:julien.marusi@bbee.fr">julien.marusi@bbee.fr</a></td>
                     </tr></table>
                 {% endblock %}

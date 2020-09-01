@@ -9,6 +9,13 @@ require dirname(__DIR__).'/vendor/autoload.php';
 
 (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 
+function jlog($mess, $export = true) {
+    $fd = fopen("../var/log/jules.log", "a");
+    if ($export) fwrite($fd, var_export($mess, true)."\n");
+    else fwrite($fd, $mess."\n");
+    fclose($fd);
+}
+
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
 
